@@ -3,6 +3,7 @@ from tkinter import filedialog
 from tkinter.filedialog import askopenfile
 from Entities.Speaker import Speaker
 from Assets.strings import *
+import webbrowser
 
 
 class UI:
@@ -65,7 +66,7 @@ class UI:
 
         # Help
         help_btn = Menu(self.__window, tearoff=0, bg="white", activebackground='whitesmoke', activeforeground='black')
-        help_btn.add_command(label=contactUsText)
+        help_btn.add_command(label=contactUsText, command=self.__openWeb)
         help_btn.add_separator()
         help_btn.add_command(label=versionNumberText)
         menubar.add_cascade(label=HelpText, menu=help_btn)
@@ -83,6 +84,9 @@ class UI:
 
     def __clearOutputFolder(self):
         self.__controller.clearOutputFolder()
+
+    def __openWeb(self):
+        webbrowser.open("https://github.com/Viktorens/Lower-Thirds-Generator")
 
 # Exit App
 def exit_app():

@@ -14,5 +14,4 @@ def main():
     root.iconbitmap("Assets/icon.ico")
     root.mainloop()
 
-
 main()
