@@ -1,0 +1,12 @@
+import datetime
+versionNumberText = 'v. 0.1.0'
+copyright = '© ' + datetime.date.today().strftime("%Y") + ' Biserica Adventistă de Ziua a Șaptea "Speranța" Cluj-Napoca'
+windowTitleText = 'Lower Thirds Generator'
+nameText = 'Name:'
+familyNameText = 'Family Name:'
+titleText = 'Title (optional):'
+generateButtonText = 'Generate Image'
+clearInputButtonText = 'Clear Input Text'
+clearOutputFolderButtonText = 'Clear Output Folder'
+contactUsText = 'Contact Us'
+HelpText = 'Help'
