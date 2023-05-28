@@ -21,16 +21,18 @@ class RepositorySpeaker:
         
         else:
             text = name + ' ' + familyName
-            image = Image.open('Assets/default.png')
+            image = Image.open('Assets/img/default.png')
             draw = ImageDraw.Draw(image)
-            fontName = ImageFont.truetype('fonts/arial.ttf', 70)
-            fontTitle = ImageFont.truetype('fonts/arial.ttf', 40)
+            fontName = ImageFont.truetype('Assets/fonts/Montserrat-Bold.ttf', 70)
+            fontTitle = ImageFont.truetype('Assets/fonts/Montserrat-Thin.ttf', 40)
             if speaker.title == '':
                 draw.text((500, 908), text, font=fontName, fill=(0, 0, 0))
             else:
                 draw.text((500, 885), text, font=fontName, fill=(0, 0, 0))
             draw.text((500, 965), speaker.title, font=fontTitle, fill=(0, 0, 0))
             image.save('Output/' + datetime.now().strftime("%Y%m%d_%H%M%S") + text + '.png')
+            os.startfile('Output')
+
         
     def clearOutputFolder (self):
         folder = './Output'

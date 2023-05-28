@@ -11,7 +11,7 @@ def main():
     root = Tk()
     app = UI(root, controlSpeaker)
     app.draw_window()
-    root.iconbitmap("Assets/icon.ico")
+    root.iconbitmap("Assets/img/icon.ico")
     root.mainloop()
 
 main()
