@@ -10,7 +10,7 @@ class Speaker:
         return self.__name
 
     @name.setter
-    def vorname(self, n):
+    def name(self, n):
         self.__name = n
 
     # Family Name

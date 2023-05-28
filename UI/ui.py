@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter.filedialog import askopenfile
 from Entities.Speaker import Speaker
-from Assets.strings import *
+from Assets.strings.strings import *
 import webbrowser
 
 

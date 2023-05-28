@@ -1,6 +1,6 @@
 import datetime
-versionNumberText = 'v. 0.1.1'
-copyright = '© ' + datetime.date.today().strftime("%Y") + ' Biserica Adventistă de Ziua a Șaptea "Speranța" Cluj-Napoca'
+versionNumberText = 'v. 0.2'
+copyrightString = '© ' + datetime.date.today().strftime("%Y") + ' Biserica Adventistă de Ziua a Șaptea "Speranța" Cluj-Napoca'
 windowTitleText = 'Lower Thirds Generator'
 nameText = 'Name:'
 familyNameText = 'Family Name:'
