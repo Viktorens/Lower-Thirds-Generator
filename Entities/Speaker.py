@@ -9,24 +9,12 @@ class Speaker:
     def name(self):
         return self.__name
 
-    @name.setter
-    def name(self, n):
-        self.__name = n
-
     # Family Name
     @property
     def familyName(self):
         return self.__familyName
 
-    @familyName.setter
-    def familyName(self, f):
-        self.__familyName = f
-
     # Title
     @property
     def title(self):
         return self.__title
-
-    @title.setter
-    def title(self, t):
-        self.title = t
