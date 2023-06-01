@@ -16,6 +16,10 @@ class UI:
         self.__controller = controller
 
     def draw_window(self):
+        '''
+        Initializing the window
+        '''
+        # initializing fonts
         pyglet.font.add_file('Assets/fonts/Montserrat-Black.ttf')
         pyglet.font.add_file('Assets/fonts/Montserrat-Bold.ttf')
         pyglet.font.add_file('Assets/fonts/Montserrat-Medium.ttf')
@@ -34,22 +38,27 @@ class UI:
         self.__window.title(windowTitleText)
         self.__window.config(bg="#fff")
 
-        # UI
+        '''
+        Creating the elements
+        '''
+        # Title
         title = Label(self.__window, text=windowTitleText, font=('Montserrat-Black', 20), bg="#fff", foreground="#000")
         title.place(relx=0.5, rely=0.1, anchor=CENTER)
         
+        # Labels
         name = Label(self.__window, text=nameText, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
         name.place(relx=0.33, rely=0.24, anchor=W)
-        self.__nameTxt.place(relx=0.57, rely=0.22, anchor=N)
-
         familyName = Label(self.__window, text=familyNameText, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
         familyName.place(relx=0.33, rely=0.32, anchor=W)
-        self.__familyNameTxt.place(relx=0.57, rely=0.30, anchor=N)
-
         title = Label(self.__window, text=titleText, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
         title.place(relx=0.33, rely=0.4, anchor=W)
+
+        # Entries
+        self.__nameTxt.place(relx=0.57, rely=0.22, anchor=N)
+        self.__familyNameTxt.place(relx=0.57, rely=0.30, anchor=N)
         self.__titleTxt.place(relx=0.57, rely=0.38, anchor=N)
 
+        # Buttons
         generateButton = Button(self.__window, text=generateButtonText, font=('Montserrat-Bold', 10), width=21, relief=RIDGE, bg='white', activebackground='whitesmoke', command=self.__addSpeakerName)
         generateButton.place(relx=0.5, rely=0.54, anchor=CENTER)
 
@@ -59,13 +68,14 @@ class UI:
         clearOutputFolderButton = Button(self.__window, text=clearOutputFolderButtonText, font=('Montserrat-Bold', 10), width=21, relief=RIDGE, bg='#FF4C4C', activebackground='#ff3232', command=self.__clearOutputFolder)
         clearOutputFolderButton.place(relx=0.5, rely=0.68, anchor=CENTER)
         
+        # Footer
         copyrightText = Label(self.__window, text=copyrightString, font=('Montserrat-Medium', 8), bg="#fff", foreground="#000")
         copyrightText.place(relx=0.0, rely=1.0, anchor=SW)
 
         # Menu bar
         menubar = Menu(self.__window)
 
-        # Help
+        # Help Section
         help_btn = Menu(self.__window, tearoff=0, bg="white", activebackground='whitesmoke', activeforeground='black')
         help_btn.add_command(label=contactUsText, command=self.__openWeb)
         help_btn.add_separator()
@@ -75,7 +85,9 @@ class UI:
 
         self.__getNumberOfFiles()
 
-    # Commands for buttons
+    '''
+    Buttons Methods
+    '''
     def __addSpeakerName(self):
         speaker = Speaker(self.__nameTxt.get(), self.__familyNameTxt.get(), self.__titleTxt.get())
         self.__controller.add(speaker)

@@ -32,8 +32,7 @@ class RepositorySpeaker:
             draw.text((470, 955), speaker.title, font=fontTitle, fill=(0, 0, 0))
             image.save('Output/' + datetime.now().strftime("%Y%m%d_%H%M%S") + text + '.png')
             os.startfile('Output')
-
-        
+    
     def clearOutputFolder (self):
         folder = './Output'
         for filename in os.listdir(folder):
@@ -45,14 +44,11 @@ class RepositorySpeaker:
                     shutil.rmtree(file_path)
             except Exception as e:
                 return failedDelete(file_path, e)
-    
+
     def getNumberOfFiles (self):
-        # folder path
         dir_path = r'./Output'
         count = 0
-        # Iterate directory
         for path in os.listdir(dir_path):
-            # check if current path is a file
             if os.path.isfile(os.path.join(dir_path, path)):
                 count += 1
         print(count)
