@@ -59,13 +59,13 @@ class UI:
         self.__titleTxt.place(relx=0.57, rely=0.38, anchor=N)
 
         # Buttons
-        generateButton = Button(self.__window, text=generateButtonText, font=('Montserrat-Bold', 10), width=21, relief=RIDGE, bg='white', activebackground='whitesmoke', command=self.__addSpeakerName)
+        generateButton = Button(self.__window, text=generateButtonText, font=('Montserrat-Bold', 10), width=21, relief=RIDGE, bg='whitesmoke', activebackground='#00A300', command=self.__addSpeakerName)
         generateButton.place(relx=0.5, rely=0.54, anchor=CENTER)
 
-        clearInputButton = Button(self.__window, text=clearInputButtonText, font=('Montserrat-Bold', 10), width=21, relief=RIDGE, bg='white', activebackground='whitesmoke', command=self.__clearInput)
+        clearInputButton = Button(self.__window, text=clearInputButtonText, font=('Montserrat-Bold', 10), width=21, relief=RIDGE, bg='whitesmoke', activebackground='white', command=self.__clearInput)
         clearInputButton.place(relx=0.5, rely=0.61, anchor=CENTER)
 
-        clearOutputFolderButton = Button(self.__window, text=clearOutputFolderButtonText, font=('Montserrat-Bold', 10), width=21, relief=RIDGE, bg='#FF4C4C', activebackground='#ff3232', command=self.__clearOutputFolder)
+        clearOutputFolderButton = Button(self.__window, text=clearOutputFolderButtonText, font=('Montserrat-Bold', 10), width=21, relief=RIDGE, bg='whitesmoke', activebackground='#ff3232', command=self.__clearOutputFolder)
         clearOutputFolderButton.place(relx=0.5, rely=0.68, anchor=CENTER)
         
         # Footer
@@ -90,7 +90,9 @@ class UI:
     '''
     def __addSpeakerName(self):
         speaker = Speaker(self.__nameTxt.get(), self.__familyNameTxt.get(), self.__titleTxt.get())
-        self.__controller.add(speaker)
+        speaker = self.__controller.add(speaker)
+        addConfirmation = Label(self.__window, text=confirmationText + speaker.name + speaker.familyName, font=('Montserrat-Medium', 9), bg='#00A300', foreground='#000')
+        addConfirmation.place(relx=0.5, rely=0.80, anchor=CENTER)
         return self.__getNumberOfFiles()
 
     def __clearInput(self):

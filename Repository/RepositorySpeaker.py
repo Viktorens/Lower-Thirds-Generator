@@ -19,6 +19,7 @@ class RepositorySpeaker:
         draw.text((470, 955), speaker.title, font=fontTitle, fill=(0, 0, 0))
         image.save('Output/' + datetime.now().strftime("%Y%m%d_%H%M%S") + text + '.png')
         os.startfile('Output')
+        return speaker
     
     def clearOutputFolder (self):
         folder = './Output'
