@@ -3,7 +3,10 @@ class ControllerSpeaker:
         self.__repoSpeaker = repoSpeaker
 
     def add(self, speaker):
-        self.__repoSpeaker.addSpeaker(speaker)
+        return self.__repoSpeaker.addSpeaker(speaker)
 
     def clearOutputFolder(self):
-        self.__repoSpeaker.clearOutputFolder()
+        return self.__repoSpeaker.clearOutputFolder()
+
+    def getNumberOfFiles(self):
+        return self.__repoSpeaker.getNumberOfFiles()

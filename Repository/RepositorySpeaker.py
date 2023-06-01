@@ -26,10 +26,10 @@ class RepositorySpeaker:
             fontName = ImageFont.truetype('Assets/fonts/Montserrat-Bold.ttf', 70)
             fontTitle = ImageFont.truetype('Assets/fonts/Montserrat-Thin.ttf', 40)
             if speaker.title == '':
-                draw.text((500, 908), text, font=fontName, fill=(0, 0, 0))
+                draw.text((470, 905), text, font=fontName, fill=(0, 0, 0))
             else:
-                draw.text((500, 885), text, font=fontName, fill=(0, 0, 0))
-            draw.text((500, 965), speaker.title, font=fontTitle, fill=(0, 0, 0))
+                draw.text((470, 885), text, font=fontName, fill=(0, 0, 0))
+            draw.text((470, 955), speaker.title, font=fontTitle, fill=(0, 0, 0))
             image.save('Output/' + datetime.now().strftime("%Y%m%d_%H%M%S") + text + '.png')
             os.startfile('Output')
 
@@ -45,3 +45,15 @@ class RepositorySpeaker:
                     shutil.rmtree(file_path)
             except Exception as e:
                 return failedDelete(file_path, e)
+    
+    def getNumberOfFiles (self):
+        # folder path
+        dir_path = r'./Output'
+        count = 0
+        # Iterate directory
+        for path in os.listdir(dir_path):
+            # check if current path is a file
+            if os.path.isfile(os.path.join(dir_path, path)):
+                count += 1
+        print(count)
+        return count
