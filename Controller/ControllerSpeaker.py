@@ -1,3 +1,6 @@
+from UI.Error import *
+from Tests.TestName import *
+
 class ControllerSpeaker:
     def __init__(self, repoSpeaker):
         self.__repoSpeaker = repoSpeaker
@@ -7,7 +10,13 @@ class ControllerSpeaker:
     @param new speaker to be added
     '''
     def add(self, speaker):
-        return self.__repoSpeaker.addSpeaker(speaker)
+        try:
+            assert TestName().speakerName(speaker.name) is True
+            assert TestName().speakerName(speaker.familyName) is True
+        except AssertionError:
+            return Error().invalidSpeakerName()
+        else:
+            return self.__repoSpeaker.addSpeaker(speaker)
     
     '''
     Clears the output folder
