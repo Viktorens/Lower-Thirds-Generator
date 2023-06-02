@@ -1,9 +1,7 @@
 from tkinter import *
-from tkinter import filedialog
-from tkinter.filedialog import askopenfile
 from Entities.Speaker import Speaker
 from Assets.strings.strings import *
-import webbrowser
+import webbrowser, pyglet
 
 
 class UI:
@@ -11,7 +9,6 @@ class UI:
         self.__window = gui_master
 
         self.__window.resizable(0, 0)
-        self.__window.protocol("WM_DELETE_WINDOW", exit_app)
         self.__nameTxt = Entry(self.__window, width=25, bg="#fff", foreground='black')
         self.__familyNameTxt = Entry(self.__window, width=25, bg="#fff", foreground='black')
         self.__titleTxt = Entry(self.__window, width=25, bg="#fff", foreground='black')
@@ -19,8 +16,16 @@ class UI:
         self.__controller = controller
 
     def draw_window(self):
-        w = 525  # width for the window
-        h = 300  # height for the window
+        '''
+        Initializing the window
+        '''
+        # initializing fonts
+        pyglet.font.add_file('Assets/fonts/Montserrat-Black.ttf')
+        pyglet.font.add_file('Assets/fonts/Montserrat-Bold.ttf')
+        pyglet.font.add_file('Assets/fonts/Montserrat-Medium.ttf')
+
+        w = 852  # width for the window
+        h = 480  # height for the window
 
         # get screen width and height
         ws = self.__window.winfo_screenwidth()  # width of the screen
@@ -33,38 +38,44 @@ class UI:
         self.__window.title(windowTitleText)
         self.__window.config(bg="#fff")
 
-        # UI
-        title = Label(self.__window, text=windowTitleText, font='Arial 12', bg="#fff", foreground="#000")
+        '''
+        Creating the elements
+        '''
+        # Title
+        title = Label(self.__window, text=windowTitleText, font=('Montserrat-Black', 20), bg="#fff", foreground="#000")
         title.place(relx=0.5, rely=0.1, anchor=CENTER)
         
-        name = Label(self.__window, text=nameText, bg="#fff", foreground="#000")
-        name.place(relx=0.25, rely=0.25, anchor=W)
-        self.__nameTxt.place(relx=0.58, rely=0.22, anchor=N)
+        # Labels
+        name = Label(self.__window, text=nameText, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
+        name.place(relx=0.33, rely=0.24, anchor=W)
+        familyName = Label(self.__window, text=familyNameText, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
+        familyName.place(relx=0.33, rely=0.32, anchor=W)
+        title = Label(self.__window, text=titleText, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
+        title.place(relx=0.33, rely=0.4, anchor=W)
 
-        familyName = Label(self.__window, text=familyNameText, bg="#fff", foreground="#000")
-        familyName.place(relx=0.25, rely=0.35, anchor=W)
-        self.__familyNameTxt.place(relx=0.58, rely=0.32, anchor=N)
+        # Entries
+        self.__nameTxt.place(relx=0.57, rely=0.22, anchor=N)
+        self.__familyNameTxt.place(relx=0.57, rely=0.30, anchor=N)
+        self.__titleTxt.place(relx=0.57, rely=0.38, anchor=N)
 
-        title = Label(self.__window, text=titleText, bg="#fff", foreground="#000")
-        title.place(relx=0.25, rely=0.45, anchor=W)
-        self.__titleTxt.place(relx=0.58, rely=0.42, anchor=N)
+        # Buttons
+        generateButton = Button(self.__window, text=generateButtonText, font=('Montserrat-Bold', 10), width=21, relief=RIDGE, bg='whitesmoke', activebackground='#00A300', command=self.__addSpeakerName)
+        generateButton.place(relx=0.5, rely=0.54, anchor=CENTER)
 
-        generateButton = Button(self.__window, text=generateButtonText, font='Arial 10', width=21, relief=RIDGE, bg='white', activebackground='whitesmoke', command=self.__addSpeakerName)
-        generateButton.place(relx=0.5, rely=0.57, anchor=N)
+        clearInputButton = Button(self.__window, text=clearInputButtonText, font=('Montserrat-Bold', 10), width=21, relief=RIDGE, bg='whitesmoke', activebackground='white', command=self.__clearInput)
+        clearInputButton.place(relx=0.5, rely=0.61, anchor=CENTER)
 
-        clearInputButton = Button(self.__window, text=clearInputButtonText, font='Arial 10', width=21, relief=RIDGE, bg='white', activebackground='whitesmoke', command=self.__clearInput)
-        clearInputButton.place(relx=0.5, rely=0.67, anchor=N)
-
-        clearOutputFolderButton = Button(self.__window, text=clearOutputFolderButtonText, font='Arial 10', width=21, relief=RIDGE, bg='#FF4C4C', activebackground='#ff3232', command=self.__clearOutputFolder)
-        clearOutputFolderButton.place(relx=0.5, rely=0.77, anchor=N)
-
-        copyrightText = Label(self.__window, text=copyright, font='Courier 8', bg="#fff", foreground="#000")
+        clearOutputFolderButton = Button(self.__window, text=clearOutputFolderButtonText, font=('Montserrat-Bold', 10), width=21, relief=RIDGE, bg='whitesmoke', activebackground='#ff3232', command=self.__clearOutputFolder)
+        clearOutputFolderButton.place(relx=0.5, rely=0.68, anchor=CENTER)
+        
+        # Footer
+        copyrightText = Label(self.__window, text=copyrightString, font=('Montserrat-Medium', 8), bg="#fff", foreground="#000")
         copyrightText.place(relx=0.0, rely=1.0, anchor=SW)
 
         # Menu bar
         menubar = Menu(self.__window)
 
-        # Help
+        # Help Section
         help_btn = Menu(self.__window, tearoff=0, bg="white", activebackground='whitesmoke', activeforeground='black')
         help_btn.add_command(label=contactUsText, command=self.__openWeb)
         help_btn.add_separator()
@@ -72,10 +83,17 @@ class UI:
         menubar.add_cascade(label=HelpText, menu=help_btn)
         self.__window.config(menu=menubar)
 
-    # Commands for buttons
+        self.__getNumberOfFiles()
+
+    '''
+    Buttons Methods
+    '''
     def __addSpeakerName(self):
         speaker = Speaker(self.__nameTxt.get(), self.__familyNameTxt.get(), self.__titleTxt.get())
-        self.__controller.add(speaker)
+        speaker = self.__controller.add(speaker)
+        addConfirmation = Label(self.__window, text=confirmationText + speaker.name + speaker.familyName, font=('Montserrat-Medium', 9), bg='#00A300', foreground='#000')
+        addConfirmation.place(relx=0.5, rely=0.80, anchor=CENTER)
+        return self.__getNumberOfFiles()
 
     def __clearInput(self):
         self.__nameTxt.delete(0, 'end')
@@ -84,10 +102,12 @@ class UI:
 
     def __clearOutputFolder(self):
         self.__controller.clearOutputFolder()
+        return self.__getNumberOfFiles()
+
+    def __getNumberOfFiles(self):
+        countFiles = numberOfFilesText + str(self.__controller.getNumberOfFiles())
+        numberOfFiles = Label(self.__window, text=countFiles, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
+        numberOfFiles.place(relx=0.5, rely=0.74, anchor=CENTER)
 
     def __openWeb(self):
         webbrowser.open("https://github.com/Viktorens/Lower-Thirds-Generator")
-
-# Exit App
-def exit_app():
-    quit()
