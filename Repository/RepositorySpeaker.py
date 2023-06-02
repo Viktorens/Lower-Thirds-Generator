@@ -1,6 +1,6 @@
 from UI.Error import *
 from PIL import Image, ImageDraw, ImageFont
-import os, shutil
+import os, shutil, subprocess, platform
 from datetime import datetime
 
 
@@ -12,13 +12,18 @@ class RepositorySpeaker:
         fontName = ImageFont.truetype('Assets/fonts/Montserrat-Bold.ttf', 70)
         fontTitle = ImageFont.truetype('Assets/fonts/Montserrat-Thin.ttf', 40)
         if speaker.title == '':
-            draw.text((470, 905), text, font=fontName, fill=(0, 0, 0))
+            draw.text((470, 905), text, font=fontName, fill=(1, 1, 1))
         else:
-            draw.text((470, 885), text, font=fontName, fill=(0, 0, 0))
+            draw.text((470, 885), text, font=fontName, fill=(1, 1, 1))
 
-        draw.text((470, 955), speaker.title, font=fontTitle, fill=(0, 0, 0))
+        draw.text((470, 955), speaker.title, font=fontTitle, fill=(1, 1, 1))
         image.save('Output/' + datetime.now().strftime("%Y%m%d_%H%M%S") + text + '.png')
-        os.startfile('Output')
+        if platform.system() == 'Windows':
+            os.startfile('Output')
+        elif platform.system() == 'Darwin':
+            subprocess.Popen(['open', 'Output'])
+        else:
+            subprocess.Popen(['xdg-open', 'Output'])    
         return speaker
     
     def clearOutputFolder (self):

@@ -91,7 +91,7 @@ class UI:
     def __addSpeakerName(self):
         speaker = Speaker(self.__nameTxt.get(), self.__familyNameTxt.get(), self.__titleTxt.get())
         speaker = self.__controller.add(speaker)
-        addConfirmation = Label(self.__window, text=confirmationText + speaker.name + speaker.familyName, font=('Montserrat-Medium', 9), bg='#00A300', foreground='#000')
+        addConfirmation = Label(self.__window, text=confirmationText + speaker.name + ' ' + speaker.familyName, font=('Montserrat-Medium', 9), bg='#00A300', foreground='#000')
         addConfirmation.place(relx=0.5, rely=0.80, anchor=CENTER)
         return self.__getNumberOfFiles()
 
