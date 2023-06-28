@@ -1,5 +1,5 @@
 from tkinter import *
-from UI.ui import *
+from UI.Ui import *
 from Controller.Controller import Controller
 from Repository.Repository import Repository
 
@@ -9,7 +9,7 @@ def main():
 
     # App
     root = Tk()
-    app = UI(root, controller)
+    app = Ui(root, controller)
     app.draw_window()
     root.iconbitmap("Assets/img/icon.ico")
     root.mainloop()

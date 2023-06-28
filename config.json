@@ -1,10 +1,10 @@
 {
     "lowerThirdConfig": {
-        "nameFontSize" : 70,
-        "titleFontSize" : 40,
-        "namePositionX" : 470,
-        "namePositonY" : 905,
-        "titlePositionX" : 470,
-        "titlePositonY" : 885
+        "nameFontSize": 70,
+        "namePositionX": 470,
+        "namePositionY": 905,
+        "titleFontSize": 40,
+        "titlePositionX": 470,
+        "titlePositionY": 885
     }
 }

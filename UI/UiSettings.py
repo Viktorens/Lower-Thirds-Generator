@@ -1,12 +1,15 @@
 from tkinter import *
-from Controller.Controller import Controller
+from tkinter import messagebox
+from Entities.LowerThird import LowerThird
 from Assets.strings.strings import *
 import pyglet
 
 
 class UiSettings:
-    def __init__(self, gui_master):
+    def __init__(self, gui_master, controller):
         self.__window = gui_master
+
+        self.__controller = controller
 
         self.__window.resizable(0, 0)
         self.__nameFontSizeText = Entry(self.__window, width=7, bg="#fff", foreground='black')
@@ -44,8 +47,9 @@ class UiSettings:
         '''
         Creating the elements
         '''
-        lowerThird = Controller.getJsonData()
-
+        lowerThirdSettings = self.__controller.getJsonSettings()
+        lowerThird = LowerThird(lowerThirdSettings['lowerThirdConfig']['nameFontSize'], lowerThirdSettings['lowerThirdConfig']['namePositionX'], lowerThirdSettings['lowerThirdConfig']['namePositionY'], lowerThirdSettings['lowerThirdConfig']['titleFontSize'], lowerThirdSettings['lowerThirdConfig']['titlePositionX'], lowerThirdSettings['lowerThirdConfig']['titlePositionY'])
+        
         # Title
         title = Label(self.__window, text=settingsTitleText, font=('Montserrat-Black', 20), bg="#fff", foreground="#000")
         title.place(relx=0.5, rely=0.1, anchor=CENTER)
@@ -71,18 +75,37 @@ class UiSettings:
         self.__namePositionXText.place(relx=0.85, rely=0.32, anchor=E)
         self.__namePositionXText.insert(0, lowerThird.namePositionX)
         self.__namePositionYText.place(relx=0.85, rely=0.4, anchor=E)
-        self.__namePositionYText.insert(0, lowerThird.namePositonY)
+        self.__namePositionYText.insert(0, lowerThird.namePositionY)
 
         self.__titleFontSizeText.place(relx=0.85, rely=0.48, anchor=E)
         self.__titleFontSizeText.insert(0, lowerThird.titleFontSize)
         self.__titlePositionXText.place(relx=0.85, rely=0.56, anchor=E)
         self.__titlePositionXText.insert(0, lowerThird.titlePositionX)
         self.__titlePositionYText.place(relx=0.85, rely=0.64, anchor=E)
-        self.__titlePositionYText.insert(0, lowerThird.titlePositonY)
+        self.__titlePositionYText.insert(0, lowerThird.titlePositionY)
 
         #Buttons
-        defaultButton = Button(self.__window, text=defaultButtonText, font=('Montserrat-Bold', 10), width=7, relief=RIDGE, bg='whitesmoke', activebackground='white')
+        defaultButton = Button(self.__window, text=defaultButtonText, font=('Montserrat-Bold', 10), width=7, relief=RIDGE, bg='whitesmoke', activebackground='white', command=self.__setDefaultValues)
         defaultButton.place(relx=0.33, rely=0.85, anchor=CENTER)
 
-        saveButton = Button(self.__window, text=saveButtonText, font=('Montserrat-Bold', 10), width=7, relief=RIDGE, bg='whitesmoke', activebackground='white')
+        saveButton = Button(self.__window, text=saveButtonText, font=('Montserrat-Bold', 10), width=7, relief=RIDGE, bg='whitesmoke', activebackground='white', command=self.__saveNewValues)
         saveButton.place(relx=0.66, rely=0.85, anchor=CENTER)
+
+    '''
+    Buttons Methods
+    '''
+    '''
+    Sends new settings values to the Controller
+    '''
+    def __saveNewValues(self):
+        if self.__controller.saveNewValues(self.__nameFontSizeText.get(), self.__namePositionXText.get(), self.__namePositionYText.get(),self.__titleFontSizeText.get(), self.__titlePositionXText.get(), self.__titlePositionYText.get()):
+            messagebox.showinfo('Saved', 'Your new settings have been saved successfully!', parent=self.__nameFontSizeText)
+        else:
+            messagebox.showwarning('Invalid Input', 'Input must be a number!', parent=self.__nameFontSizeText)
+
+    '''
+    Sends the default settings values to the Controller
+    '''
+    def __setDefaultValues(self):
+        self.__controller.saveNewValues(70, 470, 905, 40, 470, 885)
+        messagebox.showinfo('Saved', 'Your settings have been restored to the default values!', parent=self.__nameFontSizeText)

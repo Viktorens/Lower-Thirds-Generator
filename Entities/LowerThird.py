@@ -1,32 +1,32 @@
 class LowerThird:
-    def __init__(self, nameFontSize, titleFontSize, namePositionX, namePositonY, titlePositionX, titlePositonY):
+    def __init__(self, nameFontSize, namePositionX, namePositionY, titleFontSize, titlePositionX, titlePositionY):
         self.__nameFontSize= nameFontSize
-        self.__titleFontSize = titleFontSize
         self.__namePositionX = namePositionX
-        self.__namePositonY = namePositonY
+        self.__namePositionY = namePositionY
+        self.__titleFontSize = titleFontSize
         self.__titlePositionX = titlePositionX
-        self.__titlePositonY = titlePositonY
+        self.__titlePositionY = titlePositionY
 
     # Name Fontsize
     @property
     def nameFontSize(self):
         return self.__nameFontSize
 
-    # Title Fontsize
-    @property
-    def titleFontSize(self):
-        return self.__titleFontSize
-
     # Name PositionX
     @property
     def namePositionX(self):
         return self.__namePositionX
     
-    # Name PositonY
+    # Name PositionY
     @property
-    def namePositonY(self):
-        return self.__namePositonY
+    def namePositionY(self):
+        return self.__namePositionY
 
+    # Title Fontsize
+    @property
+    def titleFontSize(self):
+        return self.__titleFontSize
+    
     # Title PositionX
     @property
     def titlePositionX(self):
@@ -34,5 +34,5 @@ class LowerThird:
 
     # Title PositionY
     @property
-    def titlePositonY(self):
-        return self.__titlePositonY
+    def titlePositionY(self):
+        return self.__titlePositionY

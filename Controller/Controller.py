@@ -1,12 +1,10 @@
-from UI.Error import *
-from UI.ui import *
+from UI.Ui import *
 from Entities.LowerThird import LowerThird
 from Tests.TestName import *
-import json
 
 class Controller:
-    def __init__(self, repoSpeaker):
-        self.__repoSpeaker = repoSpeaker
+    def __init__(self, repo):
+        self.__repo = repo
 
     '''
     Adds speaker name to image
@@ -25,27 +23,46 @@ class Controller:
             assert TestName().inputNotEmpty(speaker.name) is True
             assert TestName().inputNotEmpty(speaker.familyName) is True
         except AssertionError:
-            Error().emptyInput()
             return False
         else:
-            self.__repoSpeaker.addSpeaker(speaker)
+            self.__repo.addSpeaker(speaker)
             return True
     
     '''
     Clears the output folder
     '''
     def clearOutputFolder(self):
-        return self.__repoSpeaker.clearOutputFolder()
+        return self.__repo.clearOutputFolder()
 
     '''
     Gets number of files in output folder
     @return number of files
     '''
     def getNumberOfFiles(self):
-        return self.__repoSpeaker.getNumberOfFiles()
+        return self.__repo.getNumberOfFiles()
     
-    def getJsonData ():
-        with open('config.json') as config_file:
-            data = json.load(config_file)
-            return LowerThird(data['lowerThirdConfig']['nameFontSize'], data['lowerThirdConfig']['titleFontSize'], data['lowerThirdConfig']['namePositionX'], data['lowerThirdConfig']['namePositonY'], data['lowerThirdConfig']['titlePositionX'], data['lowerThirdConfig']['titlePositonY'])
-    
+    '''
+    Saves new lower third values to json file
+    @param all new settings
+    @return True if successful, else False
+    '''
+    def saveNewValues(self, nameFontSizeText, namePositionXText, namePositionYText, titleFontSizeText, titlePositionXText, titlePositionYText):
+        try:
+            nameFontSizeText = int(nameFontSizeText)
+            namePositionXText = int(namePositionXText)
+            namePositionYText = int(namePositionYText)
+            titleFontSizeText = int(titleFontSizeText)
+            titlePositionXText = int(titlePositionXText)
+            titlePositionYText = int(titlePositionYText)
+            lowerThird = LowerThird(nameFontSizeText, namePositionXText, namePositionYText, titleFontSizeText, titlePositionXText, titlePositionYText)
+            self.__repo.saveNewValues(lowerThird)
+            return True
+        except ValueError:
+            return False
+        
+    '''
+    Gets settings stored in json file
+    @return Settings stored in json
+    '''
+    def getJsonSettings(self):
+        return self.__repo.getJsonData()
