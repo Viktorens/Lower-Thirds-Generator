@@ -6,3 +6,6 @@ class Error:
 
     def failedDelete(self, file_path, e):
         return messagebox.askretrycancel('Delete Output Folder', 'Failed to delete %s. Reason: %s' % (file_path, e))
+
+    def emptyInput(self):
+        return messagebox.askretrycancel('Empty input', 'Input can\'t be empty!')

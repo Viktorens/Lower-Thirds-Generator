@@ -1,23 +1,26 @@
 from UI.Error import *
+from Controller.Controller import Controller
 from PIL import Image, ImageDraw, ImageFont
 import os, shutil, subprocess, platform
-from datetime import datetime
 
 
-class RepositorySpeaker:
+class Repository:
     def addSpeaker(self, speaker):
+        lowerThird = Controller.getJsonData()
         text = speaker.name + ' ' + speaker.familyName
         image = Image.open('Assets/img/default.png')
         draw = ImageDraw.Draw(image)
-        fontName = ImageFont.truetype('Assets/fonts/Montserrat-Bold.ttf', 70)
-        fontTitle = ImageFont.truetype('Assets/fonts/Montserrat-Thin.ttf', 40)
-        if speaker.title == '':
-            draw.text((470, 905), text, font=fontName, fill=(1, 1, 1))
-        else:
-            draw.text((470, 885), text, font=fontName, fill=(1, 1, 1))
+        nameFontSize = ImageFont.truetype('Assets/fonts/Montserrat-Bold.ttf', lowerThird.nameFontSize)
+        titleFontSize = ImageFont.truetype('Assets/fonts/Montserrat-Thin.ttf', lowerThird.titleFontSize)
 
-        draw.text((470, 955), speaker.title, font=fontTitle, fill=(1, 1, 1))
-        image.save('Output/' + datetime.now().strftime("%Y%m%d_%H%M%S") + text + '.png')
+        if speaker.title == '':
+            draw.text((lowerThird.namePositionX, lowerThird.namePositonY), text, font=nameFontSize, fill=(1, 1, 1))
+        else:
+            draw.text((lowerThird.titlePositionX, lowerThird.titlePositonY), text, font=nameFontSize, fill=(1, 1, 1))
+
+        draw.text((470, 955), speaker.title, font=titleFontSize, fill=(1, 1, 1))
+        image.save('Output/' + text + '.png')
+        
         if platform.system() == 'Windows':
             os.startfile('Output')
         elif platform.system() == 'Darwin':
@@ -45,3 +48,8 @@ class RepositorySpeaker:
             if os.path.isfile(os.path.join(dir_path, path)):
                 count += 1
         return count
+    
+    # def __getJsonData (self):
+    #     with open('config.json') as config_file:
+    #         data = json.load(config_file)
+    #         return LowerThird(data['lowerThirdConfig']['nameFontSize'], data['lowerThirdConfig']['titleFontSize'], data['lowerThirdConfig']['namePositionX'], data['lowerThirdConfig']['namePositonY'], data['lowerThirdConfig']['titlePositionX'], data['lowerThirdConfig']['titlePositonY'])

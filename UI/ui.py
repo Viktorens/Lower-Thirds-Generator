@@ -1,5 +1,6 @@
 from tkinter import *
 from Entities.Speaker import Speaker
+from UI.UiSettings import UiSettings
 from Assets.strings.strings import *
 import webbrowser, pyglet
 
@@ -77,10 +78,11 @@ class UI:
 
         # Help Section
         help_btn = Menu(self.__window, tearoff=0, bg="white", activebackground='whitesmoke', activeforeground='black')
+        help_btn.add_command(label=settingsText, command=self.__openSettingsTab)
         help_btn.add_command(label=contactUsText, command=self.__openWeb)
         help_btn.add_separator()
         help_btn.add_command(label=versionNumberText)
-        menubar.add_cascade(label=HelpText, menu=help_btn)
+        menubar.add_cascade(label=helpText, menu=help_btn)
         self.__window.config(menu=menubar)
 
         self.__getNumberOfFiles()
@@ -90,10 +92,11 @@ class UI:
     '''
     def __addSpeakerName(self):
         speaker = Speaker(self.__nameTxt.get(), self.__familyNameTxt.get(), self.__titleTxt.get())
-        speaker = self.__controller.add(speaker)
-        addConfirmation = Label(self.__window, text=confirmationText + speaker.name + ' ' + speaker.familyName, font=('Montserrat-Medium', 9), bg='#00A300', foreground='#000')
-        addConfirmation.place(relx=0.5, rely=0.80, anchor=CENTER)
-        return self.__getNumberOfFiles()
+        if self.__controller.add(speaker):
+            self.__addConfirmation(speaker)
+            return self.__getNumberOfFiles()
+        else:
+            return self.__getNumberOfFiles()
 
     def __clearInput(self):
         self.__nameTxt.delete(0, 'end')
@@ -109,5 +112,16 @@ class UI:
         numberOfFiles = Label(self.__window, text=countFiles, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
         numberOfFiles.place(relx=0.5, rely=0.74, anchor=CENTER)
 
+    def __addConfirmation(self, speaker):
+        addConfirmation = Label(self.__window, text=confirmationText + speaker.name + ' ' + speaker.familyName, font=('Montserrat-Medium', 9), bg='#00A300', foreground='#000')
+        addConfirmation.place(relx=0.5, rely=0.80, anchor=CENTER)
+        addConfirmation.after(5000, addConfirmation.destroy)
+
     def __openWeb(self):
         webbrowser.open("https://github.com/Viktorens/Lower-Thirds-Generator")
+
+    def __openSettingsTab(self):
+        self.__window = Tk()
+        self.app = UiSettings(self.__window)
+        self.app.draw_window()
+        self.__window.mainloop()
