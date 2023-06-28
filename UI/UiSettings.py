@@ -100,6 +100,7 @@ class UiSettings:
     def __saveNewValues(self):
         if self.__controller.saveNewValues(self.__nameFontSizeText.get(), self.__namePositionXText.get(), self.__namePositionYText.get(),self.__titleFontSizeText.get(), self.__titlePositionXText.get(), self.__titlePositionYText.get()):
             messagebox.showinfo('Saved', 'Your new settings have been saved successfully!', parent=self.__nameFontSizeText)
+            self.__window.destroy()
         else:
             messagebox.showwarning('Invalid Input', 'Input must be a number!', parent=self.__nameFontSizeText)
 
@@ -109,3 +110,4 @@ class UiSettings:
     def __setDefaultValues(self):
         self.__controller.saveNewValues(70, 470, 905, 40, 470, 885)
         messagebox.showinfo('Saved', 'Your settings have been restored to the default values!', parent=self.__nameFontSizeText)
+        self.__window.destroy()
