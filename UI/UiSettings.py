@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import messagebox
+from tkinter import messagebox, ttk
 from Entities.LowerThird import LowerThird
 from Assets.strings.strings import *
 import pyglet
@@ -62,12 +62,13 @@ class UiSettings:
         namePositionYLabel = Label(self.__window, text=namePositionYText, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
         namePositionYLabel.place(relx=0.125, rely=0.4, anchor=W)
 
+
         titleFontSizeLabel = Label(self.__window, text=titleFontSizeText, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
-        titleFontSizeLabel.place(relx=0.125, rely=0.48, anchor=W)
+        titleFontSizeLabel.place(relx=0.125, rely=0.5, anchor=W)
         titlePositionXLabel = Label(self.__window, text=titlePositionXText, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
-        titlePositionXLabel.place(relx=0.125, rely=0.56, anchor=W)
+        titlePositionXLabel.place(relx=0.125, rely=0.58, anchor=W)
         titlePositionYLabel = Label(self.__window, text=titlePositionYText, font=('Montserrat-Medium', 9), bg="#fff", foreground="#000")
-        titlePositionYLabel.place(relx=0.125, rely=0.64, anchor=W)
+        titlePositionYLabel.place(relx=0.125, rely=0.66, anchor=W)
 
         # Entries
         self.__nameFontSizeText.place(relx=0.85, rely=0.24, anchor=E)
@@ -77,11 +78,11 @@ class UiSettings:
         self.__namePositionYText.place(relx=0.85, rely=0.4, anchor=E)
         self.__namePositionYText.insert(0, lowerThird.namePositionY)
 
-        self.__titleFontSizeText.place(relx=0.85, rely=0.48, anchor=E)
+        self.__titleFontSizeText.place(relx=0.85, rely=0.5, anchor=E)
         self.__titleFontSizeText.insert(0, lowerThird.titleFontSize)
-        self.__titlePositionXText.place(relx=0.85, rely=0.56, anchor=E)
+        self.__titlePositionXText.place(relx=0.85, rely=0.58, anchor=E)
         self.__titlePositionXText.insert(0, lowerThird.titlePositionX)
-        self.__titlePositionYText.place(relx=0.85, rely=0.64, anchor=E)
+        self.__titlePositionYText.place(relx=0.85, rely=0.66, anchor=E)
         self.__titlePositionYText.insert(0, lowerThird.titlePositionY)
 
         #Buttons
