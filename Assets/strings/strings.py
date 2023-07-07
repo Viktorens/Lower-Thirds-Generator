@@ -1,5 +1,5 @@
 import datetime
-versionNumberText = 'v. 0.5'
+versionNumberText = 'v. 0.5.1'
 copyrightString = '© ' + datetime.date.today().strftime("%Y") + ' Biserica Adventistă de Ziua a Șaptea "Speranța" Cluj-Napoca'
 windowTitleText = 'Lower Thirds Generator'
 nameText = 'Name:'
