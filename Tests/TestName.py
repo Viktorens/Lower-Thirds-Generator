@@ -6,3 +6,8 @@ class TestName:
         else:
             return False
     
+    def inputNotEmpty(self, name):
+        if len(name) != 0:
+            return True
+        else:
+            return False
